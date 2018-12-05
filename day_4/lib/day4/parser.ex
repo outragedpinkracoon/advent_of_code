@@ -1,16 +1,10 @@
-defmodule Day4 do
+defmodule Day4.Parser do
   @moduledoc """
   Just putting it all in here for now
   """
   @data_path Path.expand("data", File.cwd!)
 
   alias Day4.Info
-
-  def run(filename) do
-    filename
-    |> read_file
-    |> parse
-  end
 
   @doc """
   Given a filename that resides in the data directory, returns the contents
@@ -52,7 +46,7 @@ defmodule Day4 do
   Elixir DateTime from it
 
   ## Example
-    iex> Day4.parse_date_time("1518-11-04", "00:46")
+    iex> Day4.Parser.parse_date_time("1518-11-04", "00:46")
     %DateTime{year: 1518, month: 11, day: 04, zone_abbr: "AMT",
               hour: 00, minute: 46, second: 0, microsecond: {0, 0},
               utc_offset: 0, std_offset: 0, time_zone: "Etc/UTC"}
@@ -73,7 +67,7 @@ defmodule Day4 do
   Given a year, month, day, hour and minute returns an Elixir DateTime
 
   ## Example
-    iex> Day4.create_date_time(1518, 11, 04, 00, 46)
+    iex> Day4.Parser.create_date_time(1518, 11, 04, 00, 46)
     %DateTime{year: 1518, month: 11, day: 04, zone_abbr: "AMT",
               hour: 00, minute: 46, second: 0, microsecond: {0, 0},
               utc_offset: 0, std_offset: 0, time_zone: "Etc/UTC"}
@@ -88,7 +82,7 @@ defmodule Day4 do
   Given an input string, finds the parts relevant to the date and the time
 
   ## Example
-      iex> Day4.find_date_time("[1518-11-04 00:46] wakes up")
+      iex> Day4.Parser.find_date_time("[1518-11-04 00:46] wakes up")
       ["1518-11-04", "00:46"]
   """
   def find_date_time(item) do
@@ -102,7 +96,7 @@ defmodule Day4 do
   Given an input string, finds the parts relevant to the action of the guard
 
   ## Example
-      iex> Day4.find_action("[1518-11-04 00:46] wakes up")
+      iex> Day4.Parser.find_action("[1518-11-04 00:46] wakes up")
       "wakes up"
   """
   def find_action(item) do
