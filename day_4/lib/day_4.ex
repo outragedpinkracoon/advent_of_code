@@ -1,23 +1,27 @@
 defmodule Day4 do
+  @moduledoc """
+  Just putting it all in here for now
+  """
   @data_path Path.expand("data", File.cwd!)
-  
+
   alias Day4.Info
-  
+
   def run(filename) do
-    read_file(filename)
+    filename
+    |> read_file
     |> parse
   end
-  
+
   @doc """
   Given a filename that resides in the data directory, returns the contents
   of the file
   """
   def read_file(filename) do
     @data_path
-    |> Path.join("/#{filename}.txt")
+    |> Path.join("/#{ filename }.txt")
     |> File.read!
   end
-  
+
   @doc """
   Given the the contents of an input file, splits each line then parses them
   into container structs
@@ -29,24 +33,24 @@ defmodule Day4 do
   end
 
   @doc """
-  Given a list of input lines and a container for the output, 
+  Given a list of input lines and a container for the output,
   constructs a struct representing the data for each line
   """
   def parse_lines([h | t], output) do
     [date_part, time_part] = find_date_time(h)
     date = parse_date_time(date_part, time_part)
-    
+
     action = find_action(h)
-    
-    [%Info{ date: date, action: action } | parse_lines(t, output)]
+
+    [%Info{date: date, action: action} | parse_lines(t, output)]
   end
-  
+
   def parse_lines([], output), do: output
-  
+
   @doc """
-  Given the date and time parts of the input string, constructs an 
+  Given the date and time parts of the input string, constructs an
   Elixir DateTime from it
-  
+
   ## Example
     iex> Day4.parse_date_time("1518-11-04", "00:46")
     %DateTime{year: 1518, month: 11, day: 04, zone_abbr: "AMT",
@@ -54,15 +58,17 @@ defmodule Day4 do
               utc_offset: 0, std_offset: 0, time_zone: "Etc/UTC"}
   """
   def parse_date_time(date_part, time_part) do
-    [year, month, day] = String.split(date_part, "-")
+    [year, month, day] = date_part
+                         |>String.split("-")
                          |> Enum.map(&String.to_integer(&1))
-    
-    [hour, minute] = String.split(time_part, ":")
+
+    [hour, minute] = time_part
+                     |> String.split(":")
                      |> Enum.map(&String.to_integer(&1))
-    
+
     create_date_time(year, month, day, hour, minute)
   end
-  
+
   @doc """
   Given a year, month, day, hour and minute returns an Elixir DateTime
 
@@ -77,7 +83,7 @@ defmodule Day4 do
               hour: h, minute: mi, second: 0, microsecond: {0, 0},
               utc_offset: 0, std_offset: 0, time_zone: "Etc/UTC"}
   end
-  
+
   @doc """
   Given an input string, finds the parts relevant to the date and the time
 
@@ -86,11 +92,12 @@ defmodule Day4 do
       ["1518-11-04", "00:46"]
   """
   def find_date_time(item) do
-    Regex.named_captures(~r/\[(?<part>.*)\]/, item)
+    ~r/\[(?<part>.*)\]/
+    |> Regex.named_captures(item)
     |> Map.fetch!("part")
     |> String.split(" ")
   end
-  
+
   @doc """
   Given an input string, finds the parts relevant to the action of the guard
 
@@ -99,7 +106,8 @@ defmodule Day4 do
       "wakes up"
   """
   def find_action(item) do
-    String.split(item, "]")
+    item
+    |> String.split("]")
     |> Enum.at(1)
     |> String.trim
   end
