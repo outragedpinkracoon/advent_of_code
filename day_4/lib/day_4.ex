@@ -34,7 +34,7 @@ defmodule Day4 do
   """
   def parse_lines([h | t], output) do
     [date_part, time_part] = find_date_time(h)
-    date = parse_date(date_part, time_part)
+    date = parse_date_time(date_part, time_part)
     
     action = find_action(h)
     
@@ -48,22 +48,17 @@ defmodule Day4 do
   Elixir DateTime from it
   
   ## Example
-    iex> Day4.parse_date("1518-11-04", "00:46")
+    iex> Day4.parse_date_time("1518-11-04", "00:46")
     %DateTime{year: 1518, month: 11, day: 04, zone_abbr: "AMT",
               hour: 00, minute: 46, second: 0, microsecond: {0, 0},
               utc_offset: 0, std_offset: 0, time_zone: "Etc/UTC"}
   """
-  def parse_date(date_part, time_part) do
-    date_parts = String.split(date_part, "-")
-    time_parts = String.split(time_part, ":")
+  def parse_date_time(date_part, time_part) do
+    [year, month, day] = String.split(date_part, "-")
+                         |> Enum.map(&String.to_integer(&1))
     
-    #halp there must be a better way
-    year = fetch_as_int(date_parts, 0)
-    month = fetch_as_int(date_parts, 1)
-    day = fetch_as_int(date_parts, 2)
-
-    hour = fetch_as_int(time_parts, 0)
-    minute = fetch_as_int(time_parts, 1)
+    [hour, minute] = String.split(time_part, ":")
+                     |> Enum.map(&String.to_integer(&1))
     
     create_date_time(year, month, day, hour, minute)
   end
@@ -108,18 +103,5 @@ defmodule Day4 do
     |> Enum.at(1)
     |> String.trim
   end
-  
-  @doc """
-  Given a list and an index, returns the item at that index
-  as an integer
-  
-  ## Example
-      iex>  Day4.fetch_as_int(["1518","11", "04"], 0)
-      1518
-  """
-  def fetch_as_int(part, index) do
-    {num, _} = Enum.at(part, index) 
-               |> Integer.parse()
-    num
-  end
+
 end
