@@ -34,15 +34,43 @@ defmodule ParserTest do
 
   test "parse" do
     input = """
-    [1518-11-04 00:46] wakes up
-    [1518-11-02 00:40] falls asleep
+    [1518-11-01 00:25] wakes up
+    [1518-11-01 00:05] falls asleep
+    [1518-11-01 00:00] Guard #10 begins shift
     """
 
     expected = [
-      %Info{date: DateHelper.create_date_time(1518, 11, 04, 00, 46), action: "wakes up"},
-      %Info{date: DateHelper.create_date_time(1518, 11, 02, 00, 40), action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 00), action: "Guard #10 begins shift"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 05), action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 25), action: "wakes up"},
     ]
 
     assert Parser.parse(input) == expected
+  end
+
+  test "order_by_date" do
+    input = [
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 23, 58), action: "Guard #99 begins shift"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 30), action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 02, 00, 50), action: "wakes up"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 05), action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 25), action: "wakes up"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 02, 00, 40), action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 55), action: "wakes up"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 00), action: "Guard #10 begins shift"},
+    ]
+
+    expected = [
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 00), action: "Guard #10 begins shift"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 05), action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 25), action: "wakes up"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 30), action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 00, 55), action: "wakes up"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 01, 23, 58), action: "Guard #99 begins shift"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 02, 00, 40), action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 02, 00, 50), action: "wakes up"},
+    ]
+
+    assert Parser.order_by_date(input) == expected
   end
 end

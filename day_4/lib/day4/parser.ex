@@ -25,6 +25,14 @@ defmodule Day4.Parser do
     input
     |> String.split("\n", trim: true)
     |> parse_lines([])
+    |> order_by_date
+  end
+
+  @doc """
+  Given a list of Info structs, returns them ordered by date
+  """
+  def order_by_date(items) do
+    Enum.sort_by(items, &(&1.date))
   end
 
   @doc """
