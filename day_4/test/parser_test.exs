@@ -5,6 +5,7 @@ defmodule ParserTest do
 
   alias Day4.Info
   alias Day4.Parser
+  alias Day4.DateHelper
 
   test "reads the input" do
     input = Parser.read_file("test_input")
@@ -36,11 +37,10 @@ defmodule ParserTest do
     [1518-11-04 00:46] wakes up
     [1518-11-02 00:40] falls asleep
     """
-    date1 = Parser.create_date_time(1518, 11, 04, 00, 46)
-    date2 = Parser.create_date_time(1518, 11, 02, 00, 40)
+
     expected = [
-      %Info{date: date1, action: "wakes up"},
-      %Info{date: date2, action: "falls asleep"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 04, 00, 46), action: "wakes up"},
+      %Info{date: DateHelper.create_date_time(1518, 11, 02, 00, 40), action: "falls asleep"},
     ]
 
     assert Parser.parse(input) == expected
