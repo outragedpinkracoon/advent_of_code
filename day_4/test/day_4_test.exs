@@ -1,7 +1,5 @@
+# credo:disable-for-lines:1
 defmodule Day4Test do
-  @moduledoc """
-  Tests for Day4.Parser module
-  """
   use ExUnit.Case
   doctest Day4.Parser
 
