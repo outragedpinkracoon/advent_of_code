@@ -59,15 +59,9 @@ defmodule Day4.Transformer do
     nil
   """
   def find_guard_number(input) do
-    case Regex.run(~r/#+[0-9][^\s]*/, input) do
-      [match] -> parse_number(match)
-      nil -> nil
+    case Regex.run(~r/#+([0-9][^\s]*)/, input) do
+      [_ , match] -> String.to_integer(match)
+      _ -> nil
     end
-  end
-
-  defp parse_number(input) do
-    input
-    |> String.replace("#", "")
-    |> String.to_integer()
   end
 end

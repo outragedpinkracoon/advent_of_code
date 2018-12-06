@@ -80,9 +80,9 @@ defmodule Day4.Parser do
       ["1518-11-04", "00:46"]
   """
   def find_date_time(item) do
-    ~r/\[(?<part>.*)\]/
-    |> Regex.named_captures(item)
-    |> Map.fetch!("part")
+    ~r/\[(.*)\]/
+    |> Regex.run(item)
+    |> captured_match
     |> String.split(" ")
   end
 
@@ -96,8 +96,12 @@ defmodule Day4.Parser do
   def find_action(item) do
     item
     |> String.split("]")
-    |> Enum.at(1)
+    |> captured_match
     |> String.trim
+  end
+
+  defp captured_match([_, capture]) do
+    capture
   end
 
 end
