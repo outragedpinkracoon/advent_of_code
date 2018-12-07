@@ -3,9 +3,9 @@ defmodule ParserTest do
   use ExUnit.Case
   doctest Day4.Parser
 
+  alias Day4.DateHelper
   alias Day4.InputLine
   alias Day4.Parser
-  alias Day4.DateHelper
 
   test "reads the input" do
     input = Parser.read_file("test_input")

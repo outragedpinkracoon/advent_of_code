@@ -3,10 +3,10 @@ defmodule TimeSoltGeneratorTest do
   use ExUnit.Case
   doctest Day4.TimeSlotGenerator
 
-  alias Day4.InputLine
-  alias Day4.TimeSlotGenerator
   alias Day4.DateHelper
+  alias Day4.InputLine
   alias Day4.TimeSlot
+  alias Day4.TimeSlotGenerator
   # who spent the most minutes asleep
   # what minute did they sleep the most of the hour
   # get all the minutes from the slots, generate the ranges and count the one that appears the most

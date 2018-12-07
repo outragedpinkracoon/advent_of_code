@@ -4,8 +4,14 @@ defmodule Day4.Parser do
   """
   @data_path Path.expand("data", File.cwd!)
 
-  alias Day4.InputLine
   alias Day4.DateHelper
+  alias Day4.InputLine
+
+  def run(filename) do
+    filename
+    |> read_file
+    |> parse
+  end
 
   @doc """
   Given a filename that resides in the data directory, returns the contents

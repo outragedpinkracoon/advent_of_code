@@ -13,7 +13,9 @@ defmodule Day4.TimeSlotGenerator do
     [first, second | rest] = t
 
     slot = %TimeSlot{guard: number, start: first.date, end: second.date}
-    transform(rest, [slot], number)
+
+    rest
+    |> transform([slot], number)
     |> Enum.sort_by(&{&1.guard, &1.start})
   end
 

@@ -2,7 +2,7 @@ defmodule Day4.DateHelper do
   @moduledoc """
   Some helper functions for working with Dates
   """
-  
+
   @doc """
   Given a year, month, day, hour and minute returns an Elixir DateTime
 
