@@ -4,7 +4,7 @@ defmodule Day4.Parser do
   """
   @data_path Path.expand("data", File.cwd!)
 
-  alias Day4.Info
+  alias Day4.InputLine
   alias Day4.DateHelper
 
   @doc """
@@ -29,7 +29,7 @@ defmodule Day4.Parser do
   end
 
   @doc """
-  Given a list of Info structs, returns them ordered by date
+  Given a list of InputLine structs, returns them ordered by date
   """
   def order_by_date(items) do
     Enum.sort_by(items, &(&1.date))
@@ -45,7 +45,7 @@ defmodule Day4.Parser do
 
     action = find_action(h)
 
-    [%Info{date: date, action: action} | parse_lines(t, output)]
+    [%InputLine{date: date, action: action} | parse_lines(t, output)]
   end
 
   def parse_lines([], output), do: output

@@ -1,14 +1,14 @@
-defmodule Day4.Transformer do
+defmodule Day4.TimeSlotGenerator do
   @moduledoc """
-  Given a list of Info structs, get data about the guards from it
+  Given a list of InputLine  structs, get data about the guards from it
   """
 
   alias Day4.TimeSlot
 
   @doc """
-  Given a list of Info structs change them into a list of TimeSlots
+  Given a list of InputLine  structs change them into a list of TimeSlots
   """
-  def transform([h|t]) do
+  def run([h|t]) do
     number = find_guard_number(h.action)
     [first, second | rest] = t
 
@@ -53,9 +53,9 @@ defmodule Day4.Transformer do
   Given a string for an 'action' return the guard number if it's present
 
   ## Examples
-    iex> Day4.Transformer.find_guard_number("Guard #99 begins shift")
+    iex> Day4.TimeSlotGenerator.find_guard_number("Guard #99 begins shift")
     99
-    iex> Day4.Transformer.find_guard_number("falls asleep")
+    iex> Day4.TimeSlotGenerator.find_guard_number("falls asleep")
     nil
   """
   def find_guard_number(input) do
