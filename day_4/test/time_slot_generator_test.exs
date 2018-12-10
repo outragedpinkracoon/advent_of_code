@@ -7,11 +7,8 @@ defmodule TimeSoltGeneratorTest do
   alias Day4.InputLine
   alias Day4.TimeSlot
   alias Day4.TimeSlotGenerator
-  # who spent the most minutes asleep
-  # what minute did they sleep the most of the hour
-  # get all the minutes from the slots, generate the ranges and count the one that appears the most
 
-  test "transform" do
+  test "transform with good data" do
     input = [
       %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 00), action: "Guard #10 begins shift"},
       %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 05), action: "falls asleep"},
@@ -25,6 +22,8 @@ defmodule TimeSoltGeneratorTest do
       %InputLine{date: DateHelper.create_date_time(1518, 11, 03, 00, 24), action: "falls asleep"},
       %InputLine{date: DateHelper.create_date_time(1518, 11, 03, 00, 29), action: "wakes up"},
     ]
+
+    []
 
     expected = [
       %TimeSlot{
