@@ -1,11 +1,11 @@
 # credo:disable-for-lines:1
-defmodule AnalyzerTest do
+defmodule TotalSleepTest do
   use ExUnit.Case
   doctest Day4.TimeSlotGenerator
 
-  alias Day4.Analyzer
   alias Day4.DateHelper
   alias Day4.TimeSlot
+  alias Day4.TotalSleep
 
   test "minutes asleep per guard" do
     input = [
@@ -43,6 +43,6 @@ defmodule AnalyzerTest do
 
     expected = %{10 => 50, 99 => 30}
 
-    assert Analyzer.total_sleep_per_guard(input) == expected
+    assert TotalSleep.by_guard(input) == expected
   end
 end

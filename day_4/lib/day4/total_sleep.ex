@@ -1,4 +1,4 @@
-defmodule Day4.Analyzer do
+defmodule Day4.TotalSleep do
   @moduledoc """
   Analyzes the input from TimeSlot information and works out some interesting facts.
   """
@@ -9,9 +9,9 @@ defmodule Day4.Analyzer do
   e.g. %{ 10 => 30, 99 => 15 } would show that guard number 10 spent 30 minutes asleep
   and guard number 99 spent 15 minutes asleep.
   """
-  def total_sleep_per_guard([h | t]) do
+  def by_guard([h | t]) do
     result = Map.put(%{}, h.guard, sleep_time(h))
-    total_sleep_per_guard(result, t)
+    by_guard(result, t)
   end
 
   @doc """
@@ -20,7 +20,7 @@ defmodule Day4.Analyzer do
   the value otherwise insert the new value. Then continue on the rest of the set of
   TimeSlots.
   """
-  def total_sleep_per_guard(result, [h | t]) do
+  def by_guard(result, [h | t]) do
     total = case Map.fetch(result, h.guard) do
       {:ok, value} -> value
       :error -> nil
@@ -28,10 +28,10 @@ defmodule Day4.Analyzer do
 
     result
     |> update_result(total, h)
-    |> total_sleep_per_guard(t)
+    |> by_guard(t)
   end
 
-  def total_sleep_per_guard(result, []), do: result
+  def by_guard(result, []), do: result
 
   defp update_result(result, nil, slot) do
     Map.put(result, slot.guard, sleep_time(slot))
