@@ -1,6 +1,6 @@
 defmodule Day4.Parser do
   @moduledoc """
-  Just putting it all in here for now
+  Just putting it all in here for now.
   """
   @data_path Path.expand("data", File.cwd!)
 
@@ -23,7 +23,7 @@ defmodule Day4.Parser do
   end
 
   @doc """
-  Given a filename that resides in the data directory, returns the contents
+  Given a filename that resides in the data directory, returns the contents.
   of the file
   """
   def read_file(filename) do
@@ -45,7 +45,7 @@ defmodule Day4.Parser do
 
   @doc """
   Given a list of input lines and a container for the output,
-  constructs a struct representing the data for each line
+  constructs a struct representing the data for each line.
   """
   def parse_lines([h | t], output) do
     [date_part, time_part] = find_date_time(h)
@@ -81,7 +81,7 @@ defmodule Day4.Parser do
   end
 
   @doc """
-  Given an input string, finds the parts relevant to the date and the time
+  Given an input string, finds the parts relevant to the date and the time.
 
   ## Example
       iex> Day4.Parser.find_date_time("[1518-11-04 00:46] wakes up")
@@ -95,7 +95,7 @@ defmodule Day4.Parser do
   end
 
   @doc """
-  Given an input string, finds the parts relevant to the action of the guard
+  Given an input string, finds the parts relevant to the action of the guard.
 
   ## Example
       iex> Day4.Parser.find_action("[1518-11-04 00:46] wakes up")

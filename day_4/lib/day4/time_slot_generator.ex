@@ -73,7 +73,7 @@ defmodule Day4.TimeSlotGenerator do
   def transform([], slots, _), do: slots
 
   @doc """
-  Given a string for an 'action' return the guard number if it's present
+  Given a string for an 'action' return the guard number if it's present.
 
   ## Examples
     iex> Day4.TimeSlotGenerator.find_guard_number("Guard #99 begins shift")

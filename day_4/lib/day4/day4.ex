@@ -1,6 +1,6 @@
 defmodule Day4 do
   @moduledoc """
-  Top level module for the project
+  Top level module for the project.
   """
 
   alias Day4.Analyzer
