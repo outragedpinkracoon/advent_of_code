@@ -4,6 +4,6 @@ defmodule Day4Test do
   doctest Day4
 
   test "run" do
-    assert Day4.run("test_input") == 10
+    assert Day4.run("test_input") == 24
   end
 end

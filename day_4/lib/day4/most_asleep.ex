@@ -4,7 +4,7 @@ defmodule Day4.MostAsleep do
   """
 
   @doc """
-  Returns the id of the guard that has slept the most
+  Returns the id of the guard that has slept the most and the time they spent asleep
 
   ## Example
   iex> Day4.MostAsleep.run(%{10 => 50, 99 => 30, 101 => 5})
