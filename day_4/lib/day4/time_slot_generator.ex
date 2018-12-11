@@ -1,55 +1,76 @@
 defmodule Day4.TimeSlotGenerator do
   @moduledoc """
-  Given a list of InputLine  structs, get data about the guards from it
+  Given a list of InputLine structs, transform it into TimeSlot data per guard to show us all the times the guard fell asleep over a given period.
   """
 
+  alias Day4.InputLine, as: I
   alias Day4.TimeSlot
 
   @doc """
-  Given a list of InputLine  structs change them into a list of TimeSlots
+  Given a list of InputLine structs change them into a list of TimeSlots
+  ordered by the earliest date then ascending.
   """
-  def run([h|t]) do
-    number = find_guard_number(h.action)
-    [first, second | rest] = t
-
-    slot = %TimeSlot{guard: number, start: first.date, end: second.date}
-
-    rest
-    |> transform([slot], number)
+  def run(lines) do
+    lines
+    |> transform([], nil)
     |> Enum.sort_by(&{&1.guard, &1.start})
   end
 
-  def transform([h | t], slots, guard_number) do
-    case find_guard_number(h.action) do
-      nil -> not_on_guard_row(h, t, slots, guard_number)
-      number -> on_guard_row(t, slots, number)
-    end
+  @doc """
+  Match on a guard and a pair of asleep / awake lines. Make a new TimeSlot for
+  that guard and pass on the current guard number for the next match (sometimes we get several
+  sets of asleep / awake pairs for one guard row).
+  """
+  def transform([%I{action: "Guard" <> _} = guard_line,
+                %I{action: "falls" <> _} = start_line,
+                %I{action: "wakes" <> _} = finish_line |
+                rest],
+                slots,
+                _) do
+    guard_number = find_guard_number(guard_line.action)
+    slot = %TimeSlot{guard: guard_number, start: start_line.date, end: finish_line.date}
+    transform(rest, [slot | slots], guard_number)
+  end
+
+  @doc """
+  Match on 2 guard rows following each other. We disregard the first guard, since it has no
+  awake / asleep pairs attached to it then rerun the pattern match from the new guard onwards.
+  """
+  def transform([%I{action: "Guard" <> _},
+                %I{action: "Guard" <> _} = guard_line2 |
+                rest],
+                slots,
+                _) do
+    transform([guard_line2 | rest], slots, nil)
+  end
+
+   @doc """
+   Match on a pair of asleep / awake and attach to the guard we last found.
+   """
+   def transform([%I{action: "falls" <> _} = start_line,
+                %I{action: "wakes" <> _} = finish_line |rest],
+                slots,
+                guard_number) do
+    slot = %TimeSlot{guard: guard_number, start: start_line.date, end: finish_line.date}
+    transform(rest, [slot | slots], guard_number)
+  end
+
+  @doc """
+  Match on a guard and a wakes, which is an invalid state. We always want to have a falls
+  asleep followed by a wakes. Disregard this set and pattern match on the rest of the set.
+  We might get a valid awake / sleep pair next for this guard so we want to remember the
+  guard number.
+  """
+  def transform([%I{action: "Guard" <> _} = guard_line,
+                %I{action: "wakes" <> _} |
+                rest],
+                slots,
+                _) do
+    guard_number = find_guard_number(guard_line.action)
+    transform(rest, slots, guard_number)
   end
 
   def transform([], slots, _), do: slots
-
-  @doc """
-  When on an item that does not contain a guard number, we want to look ahead
-  to the next item, since falling asleep and waking up come as pairs and
-  represent the start and end of a timeslot and we already have the first
-  item in the set that we are currently looking at i.e. waking up
-  """
-  def not_on_guard_row(item, items, slots, guard_number) do
-    [next | rest] = items
-    slot = %TimeSlot{guard: guard_number, start: item.date, end: next.date}
-    transform(rest, [slot | slots], guard_number)
-  end
-
-  @doc """
-  When on an item that contains a guard number, we want to look ahead
-  to the next two items since falling asleep and waking up come as pairs and
-  represent the start and end of a timeslot and we have neither piece of information
-  """
-  def on_guard_row(items, slots, guard_number) do
-    [first, second | rest] = items
-    slot = %TimeSlot{guard: guard_number, start: first.date, end: second.date}
-    transform(rest, [slot | slots], guard_number)
-  end
 
   @doc """
   Given a string for an 'action' return the guard number if it's present

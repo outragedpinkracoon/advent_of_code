@@ -34,43 +34,33 @@ defmodule ParserTest do
 
   test "parse" do
     input = """
-    [1518-11-01 00:25] wakes up
-    [1518-11-01 00:05] falls asleep
-    [1518-11-01 00:00] Guard #10 begins shift
+    [1518-09-19 00:42] wakes up
+    [1518-08-06 00:16] wakes up
+    [1518-07-18 00:14] wakes up
+    [1518-03-23 00:19] falls asleep
+    [1518-03-23 00:00] falls asleep
+    [1518-10-12 23:58] Guard #421 begins shift
     """
 
     expected = [
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 00), action: "Guard #10 begins shift"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 05), action: "falls asleep"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 25), action: "wakes up"},
+      %InputLine{date: DateHelper.create_date_time(1518, 03, 23, 00, 00), action: "falls asleep"},
+      %InputLine{date: DateHelper.create_date_time(1518, 03, 23, 00, 19), action: "falls asleep"},
+      %InputLine{date: DateHelper.create_date_time(1518, 07, 18, 00, 14), action: "wakes up"},
+      %InputLine{date: DateHelper.create_date_time(1518, 08, 06, 00, 16), action: "wakes up"},
+      %InputLine{date: DateHelper.create_date_time(1518, 09, 19, 00, 42), action: "wakes up"},
+      %InputLine{date: DateHelper.create_date_time(1518, 10, 12, 23, 58), action: "Guard #421 begins shift"},
     ]
-
     assert Parser.parse(input) == expected
   end
 
-  test "order_by_date" do
-    input = [
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 23, 58), action: "Guard #99 begins shift"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 30), action: "falls asleep"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 02, 00, 50), action: "wakes up"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 05), action: "falls asleep"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 25), action: "wakes up"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 02, 00, 40), action: "falls asleep"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 55), action: "wakes up"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 00), action: "Guard #10 begins shift"},
-    ]
-
+  test "run" do
     expected = [
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 00), action: "Guard #10 begins shift"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 05), action: "falls asleep"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 25), action: "wakes up"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 30), action: "falls asleep"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 00, 55), action: "wakes up"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 01, 23, 58), action: "Guard #99 begins shift"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 02, 00, 40), action: "falls asleep"},
-      %InputLine{date: DateHelper.create_date_time(1518, 11, 02, 00, 50), action: "wakes up"},
+      %InputLine{date: DateHelper.create_date_time(1518, 03, 23, 00, 19), action: "falls asleep"},
+      %InputLine{date: DateHelper.create_date_time(1518, 07, 18, 00, 14), action: "wakes up"},
+      %InputLine{date: DateHelper.create_date_time(1518, 08, 06, 00, 16), action: "wakes up"},
+      %InputLine{date: DateHelper.create_date_time(1518, 09, 19, 00, 42), action: "wakes up"},
+      %InputLine{date: DateHelper.create_date_time(1518, 10, 12, 23, 58), action: "Guard #421 begins shift"},
     ]
-
-    assert Parser.order_by_date(input) == expected
+    assert Parser.run("test_parser_run") == expected
   end
 end

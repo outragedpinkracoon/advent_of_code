@@ -10,7 +10,6 @@ defmodule Day4 do
   def run(filename) do
     filename
     |> Parser.run
-    |> Enum.sort_by(&(&1.date))
     |> TimeSlotGenerator.run
     |> Analyzer.total_sleep_per_guard
   end

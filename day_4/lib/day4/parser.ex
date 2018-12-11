@@ -13,6 +13,15 @@ defmodule Day4.Parser do
     |> parse
   end
 
+  def sort_by_date(items) do
+    items
+    |> Enum.sort_by(
+      fn i -> {
+        i.date.year, i.date.month, i.date.day, i.date.hour, i.date.minute, i.date.second
+      }
+    end)
+  end
+
   @doc """
   Given a filename that resides in the data directory, returns the contents
   of the file
@@ -31,14 +40,7 @@ defmodule Day4.Parser do
     input
     |> String.split("\n", trim: true)
     |> parse_lines([])
-    |> order_by_date
-  end
-
-  @doc """
-  Given a list of InputLine structs, returns them ordered by date
-  """
-  def order_by_date(items) do
-    Enum.sort_by(items, &(&1.date))
+    |> sort_by_date
   end
 
   @doc """
