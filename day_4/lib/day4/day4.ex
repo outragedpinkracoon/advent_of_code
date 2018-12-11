@@ -29,6 +29,6 @@ defmodule Day4 do
       IO.puts "Guard: #{guard}, mins: #{common_minute}"
     end
 
-    common_minute
+    common_minute * guard
   end
 end
