@@ -23,8 +23,6 @@ defmodule TimeSoltGeneratorTest do
       %InputLine{date: DateHelper.create_date_time(1518, 11, 03, 00, 29), action: "wakes up"},
     ]
 
-    []
-
     expected = [
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
@@ -69,8 +67,6 @@ defmodule TimeSoltGeneratorTest do
       %InputLine{date: DateHelper.create_date_time(1518, 11, 03, 00, 29), action: "wakes up"},
     ]
 
-    []
-
     expected = [
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
@@ -95,6 +91,51 @@ defmodule TimeSoltGeneratorTest do
     ]
 
     assert TimeSlotGenerator.run(input) == expected
+  end
+
+  test "slots for" do
+    input = [
+      %TimeSlot{
+        start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
+        end: DateHelper.create_date_time(1518, 11, 01, 00, 25),
+        guard: 10
+      },
+      %TimeSlot{
+        start: DateHelper.create_date_time(1518, 11, 01, 00, 30),
+        end: DateHelper.create_date_time(1518, 11, 01, 00, 55),
+        guard: 10
+      },
+      %TimeSlot{
+        start: DateHelper.create_date_time(1518, 11, 03, 00, 24),
+        end: DateHelper.create_date_time(1518, 11, 03, 00, 29),
+        guard: 10
+      },
+      %TimeSlot{
+        start: DateHelper.create_date_time(1518, 11, 02, 00, 40),
+        end: DateHelper.create_date_time(1518, 11, 02, 00, 50),
+        guard: 99
+      },
+    ]
+
+    expected = [
+      %TimeSlot{
+        start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
+        end: DateHelper.create_date_time(1518, 11, 01, 00, 25),
+        guard: 10
+      },
+      %TimeSlot{
+        start: DateHelper.create_date_time(1518, 11, 01, 00, 30),
+        end: DateHelper.create_date_time(1518, 11, 01, 00, 55),
+        guard: 10
+      },
+      %TimeSlot{
+        start: DateHelper.create_date_time(1518, 11, 03, 00, 24),
+        end: DateHelper.create_date_time(1518, 11, 03, 00, 29),
+        guard: 10
+      }
+    ]
+
+    assert TimeSlotGenerator.slots_for(10, input) == expected
   end
 
   test "find_guard_number" do

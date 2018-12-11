@@ -73,6 +73,13 @@ defmodule Day4.TimeSlotGenerator do
   def transform([], slots, _), do: slots
 
   @doc """
+  Given a list of TimeSlots, return only the slots attached to the given guard
+  """
+  def slots_for(guard_number, slots) do
+    Enum.filter(slots, fn x -> x.guard == guard_number end)
+  end
+
+  @doc """
   Given a string for an 'action' return the guard number if it's present.
 
   ## Examples
