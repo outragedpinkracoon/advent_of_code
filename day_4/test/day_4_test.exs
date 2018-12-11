@@ -4,8 +4,6 @@ defmodule Day4Test do
   doctest Day4
 
   test "run" do
-    expected = %{10 => 50, 99 => 30}
-
-    assert Day4.run("test_input") == expected
+    assert Day4.run("test_input") == 10
   end
 end
