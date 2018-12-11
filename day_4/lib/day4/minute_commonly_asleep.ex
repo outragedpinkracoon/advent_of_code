@@ -20,6 +20,7 @@ defmodule Day4.MinuteCommonlyAsleep do
     |> find_max
   end
 
+  # TODO: This is super similar to the TotalSleep.by_guard function, we should pull it out for reuse
   def most_common(result, [minute | t]) do
     count = case Map.fetch(result, minute) do
       {:ok, value} -> value
@@ -33,6 +34,8 @@ defmodule Day4.MinuteCommonlyAsleep do
 
   def most_common(result, []), do: result
 
+  # TODO: This is super similar to the MostAsleep.run function, we should maybe
+  # make it more generic
   defp find_max(items) do
     items
     |> Enum.into(%{}, fn {k, v} -> {v, k} end)
