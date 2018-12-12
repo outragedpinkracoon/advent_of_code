@@ -15,20 +15,20 @@ defmodule Day4 do
     |> Parser.run
     |> TimeSlotGenerator.run
 
-    guard =
+    sleepiest_guard =
     all_slots
     |> TotalSleep.by_guard
     |> MapHelper.max_value
 
     common_minute =
-    guard
+    sleepiest_guard
     |> TimeSlotGenerator.slots_for(all_slots)
     |> MinuteCommonlyAsleep.run
 
     if Mix.env != :test do
-      IO.puts "Guard: #{guard}, mins: #{common_minute}"
+      IO.puts "Guard: #{sleepiest_guard}, mins: #{common_minute}"
     end
 
-    common_minute * guard
+    common_minute * sleepiest_guard
   end
 end
