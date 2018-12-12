@@ -3,6 +3,8 @@ defmodule Day4.MinuteCommonlyAsleep do
   Given a list of timeslots for a guard, work out the minute of the hour they are most commonly asleep
   """
 
+  alias Day4.MapHelper
+
   @doc """
   Given a list of timeslots return the minute the guard was most commonly asleep
   """
@@ -17,7 +19,7 @@ defmodule Day4.MinuteCommonlyAsleep do
   def most_common([minute | t]) do
     %{minute => 1}
     |> most_common(t)
-    |> find_max
+    |> MapHelper.max_value
   end
 
   # TODO: This is super similar to the TotalSleep.by_guard function, we should pull it out for reuse
@@ -33,19 +35,6 @@ defmodule Day4.MinuteCommonlyAsleep do
   end
 
   def most_common(result, []), do: result
-
-  # TODO: This is super similar to the MostAsleep.run function, we should maybe
-  # make it more generic
-  defp find_max(items) do
-    items
-    |> Enum.into(%{}, fn {k, v} -> {v, k} end)
-    |> Enum.max
-    |> find_minute
-  end
-
-  defp find_minute({_, minute}) do
-    minute
-  end
 
   defp update_result(result, nil, minute) do
     Map.put(result, minute, 1)

@@ -3,8 +3,8 @@ defmodule Day4 do
   Top level module for the project.
   """
 
+  alias Day4.MapHelper
   alias Day4.MinuteCommonlyAsleep
-  alias Day4.MostAsleep
   alias Day4.Parser
   alias Day4.TimeSlotGenerator
   alias Day4.TotalSleep
@@ -18,7 +18,7 @@ defmodule Day4 do
     guard =
     all_slots
     |> TotalSleep.by_guard
-    |> MostAsleep.run
+    |> MapHelper.max_value
 
     common_minute =
     guard
