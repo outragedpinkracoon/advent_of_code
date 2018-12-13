@@ -3,6 +3,8 @@ defmodule Day4.TotalSleep do
   Analyzes the input from TimeSlot information and works out some interesting facts.
   """
 
+  alias Day4.MapHelper
+
   @doc """
   Given a list of TimeSlot structs, returns a map where the keys are the guard number
   and the values are the total time that guard spent asleep
@@ -20,14 +22,11 @@ defmodule Day4.TotalSleep do
   the value otherwise insert the new value. Then continue on the rest of the set of
   TimeSlots.
   """
-  def by_guard(result, [h | t]) do
-    total = case Map.fetch(result, h.guard) do
-      {:ok, value} -> value
-      :error -> nil
-    end
+  def by_guard(result, [slot | t]) do
+    total = MapHelper.value_or_nil(result, slot.guard)
 
     result
-    |> update_result(total, h)
+    |> update_result(total, slot)
     |> by_guard(t)
   end
 

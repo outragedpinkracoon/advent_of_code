@@ -16,18 +16,18 @@ defmodule Day4.MinuteCommonlyAsleep do
     |> most_common
   end
 
+  @doc """
+  Given a list of minutes, count the occurence of each one and return
+  the most commonly seen one
+  """
   def most_common([minute | t]) do
     %{minute => 1}
     |> most_common(t)
     |> MapHelper.max_value
   end
 
-  # TODO: This is super similar to the TotalSleep.by_guard function, we should pull it out for reuse
   def most_common(result, [minute | t]) do
-    count = case Map.fetch(result, minute) do
-      {:ok, value} -> value
-      :error -> nil
-    end
+    count = MapHelper.value_or_nil(result, minute)
 
     result
     |> update_result(count, minute)

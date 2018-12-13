@@ -10,20 +10,17 @@ defmodule Day4 do
   alias Day4.TotalSleep
 
   def run(filename) do
-    all_slots =
-    filename
-    |> Parser.run
-    |> TimeSlotGenerator.run
+    all_slots = filename
+                |> Parser.run
+                |> TimeSlotGenerator.run
 
-    sleepiest_guard =
-    all_slots
-    |> TotalSleep.by_guard
-    |> MapHelper.max_value
+    sleepiest_guard = all_slots
+                      |> TotalSleep.by_guard
+                      |> MapHelper.max_value
 
-    common_minute =
-    sleepiest_guard
-    |> TimeSlotGenerator.slots_for(all_slots)
-    |> MinuteCommonlyAsleep.run
+    common_minute = sleepiest_guard
+                    |> TimeSlotGenerator.slots_for(all_slots)
+                    |> MinuteCommonlyAsleep.run
 
     if Mix.env != :test do
       IO.puts "Guard: #{sleepiest_guard}, mins: #{common_minute}"
