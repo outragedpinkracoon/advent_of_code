@@ -40,7 +40,7 @@ defmodule Day4.TotalSleep do
     Map.put(result, slot.guard, sleep_time(slot) + total)
   end
 
-  defp sleep_time(slot) do
+  def sleep_time(slot) do
     DateTime.diff(slot.end, slot.start) / 60
   end
 end

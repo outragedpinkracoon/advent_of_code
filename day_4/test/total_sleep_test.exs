@@ -45,4 +45,28 @@ defmodule TotalSleepTest do
 
     assert TotalSleep.by_guard(input) == expected
   end
+
+  test "sleep time" do
+    slot1 = %TimeSlot{
+      start: DateHelper.create_date_time(1518, 11, 04, 6, 15),
+      end: DateHelper.create_date_time(1518, 11, 04, 6, 55),
+      guard: 99
+    }
+
+    slot2 = %TimeSlot{
+      start: DateHelper.create_date_time(1518, 11, 04, 6, 55),
+      end: DateHelper.create_date_time(1518, 11, 04, 7, 05),
+      guard: 99
+    }
+
+    slot3 = %TimeSlot{
+      start: DateHelper.create_date_time(1518, 11, 04, 23, 30),
+      end: DateHelper.create_date_time(1518, 11, 05, 00, 35),
+      guard: 99
+    }
+
+    assert TotalSleep.sleep_time(slot1) == 40
+    assert TotalSleep.sleep_time(slot2) == 10
+    assert TotalSleep.sleep_time(slot3) == 65
+  end
 end
