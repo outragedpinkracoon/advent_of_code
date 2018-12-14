@@ -12,17 +12,20 @@ defmodule MinuteCommonlyAsleepTest do
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 25),
-        guard: 10
+        guard: 10,
+        mins_asleep: 20
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 30),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 55),
-        guard: 10
+        guard: 10,
+        mins_asleep: 25
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 03, 00, 24),
         end: DateHelper.create_date_time(1518, 11, 03, 00, 29),
-        guard: 10
+        guard: 10,
+        mins_asleep: 5
       }
     ]
 

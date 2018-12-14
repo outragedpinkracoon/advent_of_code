@@ -7,6 +7,7 @@ defmodule Day4.MinuteCommonlyAsleep do
 
   @doc """
   Given a list of timeslots return the minute the guard was most commonly asleep
+
   """
   def run(slots) do
     slots
@@ -27,20 +28,17 @@ defmodule Day4.MinuteCommonlyAsleep do
   end
 
   def most_common(result, [minute | t]) do
-    count = MapHelper.value_or_nil(result, minute)
+    {_, updated} = Map.get_and_update(result, minute, fn current_value ->
+      value = case current_value do
+        nil -> 1
+        _ -> current_value + 1
+      end
+      {current_value, value}
+    end)
 
-    result
-    |> update_result(count, minute)
+    updated
     |> most_common(t)
   end
 
   def most_common(result, []), do: result
-
-  defp update_result(result, nil, minute) do
-    Map.put(result, minute, 1)
-  end
-
-  defp update_result(result, count, minute) do
-    Map.put(result, minute, count + 1)
-  end
 end
