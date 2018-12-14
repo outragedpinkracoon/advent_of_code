@@ -3,6 +3,7 @@ defmodule Day4.TimeSlotGenerator do
   Given a list of InputLine structs, transform it into TimeSlot data per guard to show us all the times the guard fell asleep over a given period.
   """
 
+  alias Day4.DateHelper
   alias Day4.InputLine, as: I
   alias Day4.TimeSlot
 
@@ -28,7 +29,13 @@ defmodule Day4.TimeSlotGenerator do
                 slots,
                 _) do
     guard_number = find_guard_number(guard_line.action)
-    slot = %TimeSlot{guard: guard_number, start: start_line.date, end: finish_line.date}
+
+    slot = %TimeSlot{
+      guard: guard_number,
+      start: start_line.date,
+      end: finish_line.date,
+      mins_asleep: DateHelper.minutes_between(start_line.date, finish_line.date)
+    }
     transform(rest, [slot | slots], guard_number)
   end
 
@@ -51,7 +58,12 @@ defmodule Day4.TimeSlotGenerator do
                 %I{action: "wakes" <> _} = finish_line |rest],
                 slots,
                 guard_number) do
-    slot = %TimeSlot{guard: guard_number, start: start_line.date, end: finish_line.date}
+    slot = %TimeSlot{
+      guard: guard_number,
+      start: start_line.date,
+      end: finish_line.date,
+      mins_asleep: DateHelper.minutes_between(start_line.date, finish_line.date)
+    }
     transform(rest, [slot | slots], guard_number)
   end
 

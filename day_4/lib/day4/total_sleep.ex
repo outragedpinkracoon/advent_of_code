@@ -11,8 +11,8 @@ defmodule Day4.TotalSleep do
   e.g. %{ 10 => 30, 99 => 15 } would show that guard number 10 spent 30 minutes asleep
   and guard number 99 spent 15 minutes asleep.
   """
-  def by_guard([h | t]) do
-    result = Map.put(%{}, h.guard, sleep_time(h))
+  def by_guard([slot | t]) do
+    result = Map.put(%{}, slot.guard, slot.mins_asleep)
     by_guard(result, t)
   end
 
@@ -33,14 +33,10 @@ defmodule Day4.TotalSleep do
   def by_guard(result, []), do: result
 
   defp update_result(result, nil, slot) do
-    Map.put(result, slot.guard, sleep_time(slot))
+    Map.put(result, slot.guard, slot.mins_asleep)
   end
 
   defp update_result(result, total, slot) do
-    Map.put(result, slot.guard, sleep_time(slot) + total)
-  end
-
-  def sleep_time(slot) do
-    DateTime.diff(slot.end, slot.start) / 60
+    Map.put(result, slot.guard, slot.mins_asleep + total)
   end
 end
