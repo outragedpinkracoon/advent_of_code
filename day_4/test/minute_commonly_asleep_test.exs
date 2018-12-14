@@ -40,26 +40,4 @@ defmodule MinuteCommonlyAsleepTest do
     assert MinuteCommonlyAsleep.most_common([22, 78, 44, 56, 78, 49, 11, 78]) == 78
     assert MinuteCommonlyAsleep.most_common([22, 33]) == 33
   end
-
-  test "start and end" do
-    slots = [
-      %TimeSlot{
-        start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
-        end: DateHelper.create_date_time(1518, 11, 01, 00, 25),
-        guard: 10,
-        mins_asleep: 20
-      },
-    ]
-
-    assert MinuteCommonlyAsleep.start_and_end(slots) == [%{start: 5, end: 25}]
-  end
-
-  test "convert to range" do
-    input = [
-      %{start: 5, end: 10},
-      %{start: 1, end: 2},
-    ]
-
-    assert MinuteCommonlyAsleep.convert_to_range(input) == [[5, 6, 7, 8, 9, 10], [1, 2]]
-  end
 end

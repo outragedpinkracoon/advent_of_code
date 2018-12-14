@@ -11,31 +11,27 @@ defmodule Day4.MinuteCommonlyAsleep do
   """
   def run(slots) do
     slots
-    |> start_and_end
-    |> convert_to_range
+    |> Enum.map(fn(s) -> %{start: s.start.minute, end: s.end.minute} end)
+    |> convert_to_ranges
     |> List.flatten
     |> most_common
   end
 
   @doc """
-  Given a list of timeslots returns a list of maps representing the start
-  and end minutes
-  """
-  def start_and_end(slots) do
-    slots |> Enum.map(fn(s) -> %{start: s.start.minute, end: s.end.minute} end)
-  end
-
-  @doc """
-  Given an list of start and end minutes in maps, returns a list of all the ranges
-  that can be made between these values.
+  Given an list of start and end minutes in maps, returns a list of the
+  range of minutes that they spent asleep i.e. not including the end
+  minute when they woke up.
 
   ##Example
     iex> input = [%{start: 1, end: 5}, %{start: 4, end: 10}]
-    iex> Day4.MinuteCommonlyAsleep.convert_to_range(input)
-    [[1, 2, 3, 4, 5], [4, 5, 6, 7, 8, 9, 10]]
+    iex> Day4.MinuteCommonlyAsleep.convert_to_ranges(input)
+    [[1, 2, 3, 4], [4, 5, 6, 7, 8, 9]]
   """
-  def convert_to_range(items) do
-    items |> Enum.map(fn(s) -> Enum.to_list(s.start..s.end) end)
+  def convert_to_ranges(items) do
+    items |> Enum.map(fn(s) ->
+      finish = s.end - 1
+      Enum.to_list(s.start..finish)
+    end)
   end
 
   @doc """
