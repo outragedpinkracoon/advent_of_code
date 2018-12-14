@@ -28,25 +28,25 @@ defmodule TimeSoltGeneratorTest do
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 25),
         guard: 10,
-        mins_asleep: 20
+        mins_asleep: 19
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 30),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 55),
         guard: 10,
-        mins_asleep: 25
+        mins_asleep: 24
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 03, 00, 24),
         end: DateHelper.create_date_time(1518, 11, 03, 00, 29),
         guard: 10,
-        mins_asleep: 5
+        mins_asleep: 4
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 02, 00, 40),
         end: DateHelper.create_date_time(1518, 11, 02, 00, 50),
         guard: 99,
-        mins_asleep: 10
+        mins_asleep: 9
       },
     ]
 
@@ -76,25 +76,25 @@ defmodule TimeSoltGeneratorTest do
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 25),
         guard: 10,
-        mins_asleep: 20
+        mins_asleep: 19
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 30),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 55),
         guard: 10,
-        mins_asleep: 25
+        mins_asleep: 24
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 03, 00, 24),
         end: DateHelper.create_date_time(1518, 11, 03, 00, 29),
         guard: 10,
-        mins_asleep: 5
+        mins_asleep: 4
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 02, 00, 40),
         end: DateHelper.create_date_time(1518, 11, 02, 00, 50),
         guard: 99,
-        mins_asleep: 10
+        mins_asleep: 9
       },
     ]
 
@@ -107,25 +107,25 @@ defmodule TimeSoltGeneratorTest do
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 25),
         guard: 10,
-        mins_asleep: 20
+        mins_asleep: 19
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 30),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 55),
         guard: 10,
-        mins_asleep: 25
+        mins_asleep: 24
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 03, 00, 24),
         end: DateHelper.create_date_time(1518, 11, 03, 00, 29),
         guard: 10,
-        mins_asleep: 5
+        mins_asleep: 4
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 02, 00, 40),
         end: DateHelper.create_date_time(1518, 11, 02, 00, 50),
         guard: 99,
-        mins_asleep: 10
+        mins_asleep: 9
       },
     ]
 
@@ -134,19 +134,19 @@ defmodule TimeSoltGeneratorTest do
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 25),
         guard: 10,
-        mins_asleep: 20
+        mins_asleep: 19
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 30),
         end: DateHelper.create_date_time(1518, 11, 01, 00, 55),
         guard: 10,
-        mins_asleep: 25
+        mins_asleep: 24
       },
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 03, 00, 24),
         end: DateHelper.create_date_time(1518, 11, 03, 00, 29),
         guard: 10,
-        mins_asleep: 5
+        mins_asleep: 4
       },
     ]
 

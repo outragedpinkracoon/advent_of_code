@@ -37,6 +37,6 @@ defmodule Day4.DateHelper do
     assert Day4.TimeSlotGenerator.sleep_time(start3, end3) == 65
   """
   def minutes_between(start, finish) do
-    DateTime.diff(finish, start) / 60
+    (DateTime.diff(finish, start) / 60) - 1
   end
 end
