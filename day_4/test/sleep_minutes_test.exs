@@ -1,13 +1,13 @@
 # credo:disable-for-lines:1
-defmodule MinuteCommonlyAsleepTest do
+defmodule SleepMinutesTest do
   use ExUnit.Case
-  doctest Day4.MinuteCommonlyAsleep
+  doctest Day4.SleepMinutes
 
   alias Day4.DateHelper
-  alias Day4.MinuteCommonlyAsleep
+  alias Day4.SleepMinutes
   alias Day4.TimeSlot
 
-  test "run with test input" do
+  test "asleep the most on" do
     slots = [
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),
@@ -29,15 +29,6 @@ defmodule MinuteCommonlyAsleepTest do
       }
     ]
 
-    assert MinuteCommonlyAsleep.run(slots) == 24
-  end
-
-  test "most common" do
-    assert MinuteCommonlyAsleep.most_common([1, 2, 3, 2, 4]) == 2
-    assert MinuteCommonlyAsleep.most_common([1, 2, 3, 2, 4, 4]) == 4
-    assert MinuteCommonlyAsleep.most_common([1]) == 1
-    assert MinuteCommonlyAsleep.most_common([22, 11, 44, 56, 78, 49, 11]) == 11
-    assert MinuteCommonlyAsleep.most_common([22, 78, 44, 56, 78, 49, 11, 78]) == 78
-    assert MinuteCommonlyAsleep.most_common([22, 33]) == 33
+    assert SleepMinutes.asleep_the_most_on(slots) == 24
   end
 end

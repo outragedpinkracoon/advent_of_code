@@ -7,7 +7,7 @@ defmodule TotalSleepTest do
   alias Day4.TimeSlot
   alias Day4.TotalSleep
 
-  test "minutes asleep per guard" do
+  test "by guard" do
     input = [
       %TimeSlot{
         start: DateHelper.create_date_time(1518, 11, 01, 00, 05),

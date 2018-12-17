@@ -4,8 +4,8 @@ defmodule Day4 do
   """
 
   alias Day4.MapHelper
-  alias Day4.MinuteCommonlyAsleep
   alias Day4.Parser
+  alias Day4.SleepMinutes
   alias Day4.TimeSlotGenerator
   alias Day4.TotalSleep
 
@@ -20,7 +20,7 @@ defmodule Day4 do
 
     common_minute = sleepiest_guard
                     |> TimeSlotGenerator.slots_for(all_slots)
-                    |> MinuteCommonlyAsleep.run
+                    |> SleepMinutes.asleep_the_most_on
 
     if Mix.env != :test do
       IO.puts "Guard: #{sleepiest_guard}, mins: #{common_minute}"
