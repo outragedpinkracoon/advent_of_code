@@ -9,7 +9,7 @@ defmodule Day4 do
   alias Day4.TimeSlotGenerator
   alias Day4.TotalSleep
 
-  def run(filename) do
+  def part1(filename) do
     all_slots = filename
                 |> Parser.run
                 |> TimeSlotGenerator.run
